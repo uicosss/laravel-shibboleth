@@ -92,6 +92,31 @@ by reading what's been populated into the `$_SERVER` variable after authenticati
 
 Mapped values will be synced to the user table upon successful authentication.
 
+### Declare Login Route
+
+By convention, [laravel assumes a route named `login` exists][laravel-login]
+to redirect unauthenticated requests.
+
+[laravel-login]:https://github.com/laravel/framework/blob/b301be35ca42762d876f84d02704718a1226a97d/src/Illuminate/Foundation/Exceptions/Handler.php#L220
+
+This package names its route `shibboleth-login` because
+it's designed to work alongside other authentication providers,
+such as the default scaffolding provided by artisan.
+But if this is the only authentication provider,
+then that name will need to be manually declared. e.g.
+
+```php
+Route::name('login')->get('/login', '\\'.Route::getRoutes()->getByName('shibboleth-login')->getActionName());
+```
+
+or more readable, but with a redirect:
+
+```php
+Route::redirect('/login', '/shibboleth-login')->name('login');
+```
+
+See also: https://github.com/razorbacks/laravel-shibboleth/issues/10
+
 ## Authorization
 
 You can check for an entitlement string of the current user statically:
