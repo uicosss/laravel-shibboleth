@@ -1,6 +1,6 @@
 <?php
 
-namespace StudentAffairsUwm\Shibboleth\Controllers;
+namespace StudentSystemServices\Shibboleth\Controllers;
 
 use Illuminate\Auth\GenericUser;
 use Illuminate\Routing\Controller;
@@ -40,18 +40,6 @@ class ShibbolethController extends Controller
      */
     public function __construct(GenericUser $user = null)
     {
-        if (config('shibboleth.emulate_idp') === true) {
-            $this->config         = new \Shibalike\Config();
-            $this->config->idpUrl = '/emulated/idp';
-
-            $stateManager = $this->getStateManager();
-
-            $this->sp = new \Shibalike\SP($stateManager, $this->config);
-            $this->sp->initLazySession();
-
-            $this->idp = new \Shibalike\IdP($stateManager, $this->getAttrStore(), $this->config);
-        }
-
         $this->user = $user;
     }
 
@@ -61,11 +49,6 @@ class ShibbolethController extends Controller
      */
     public function login()
     {
-        if (config('shibboleth.emulate_idp') === true) {
-            return Redirect::to(action('\\' . __CLASS__ . '@emulateLogin')
-                . '?target=' .  action('\\' . __CLASS__ . '@idpAuthenticate'));
-        }
-
         return Redirect::to('https://' . Request::server('SERVER_NAME')
             . ':' . Request::server('SERVER_PORT') . config('shibboleth.idp_login')
             . '?target=' . action('\\' . __CLASS__ . '@idpAuthenticate'));
@@ -115,9 +98,9 @@ class ShibbolethController extends Controller
 
         $route = config('shibboleth.authenticated');
 
-        if (config('jwtauth') === true) {
-            $route .= $this->tokenizeRedirect($user, ['auth_type' => 'idp']);
-        }
+//        if (config('jwtauth') === true) {
+//            $route .= $this->tokenizeRedirect($user, ['auth_type' => 'idp']);
+//        }
 
         return redirect()->intended($route);
     }
@@ -130,98 +113,19 @@ class ShibbolethController extends Controller
         Auth::logout();
         Session::flush();
 
-        if (config('jwtauth')) {
-            $token = JWTAuth::parseToken();
-            $token->invalidate();
-        }
-
-        if (config('shibboleth.emulate_idp') == true) {
-            return Redirect::to(action('\\' . __CLASS__ . '@emulateLogout'));
-        }
+//        if (config('jwtauth')) {
+//            $token = JWTAuth::parseToken();
+//            $token->invalidate();
+//        }
 
         return Redirect::to('https://' . Request::server('SERVER_NAME') . config('shibboleth.idp_logout'));
     }
 
     /**
-     * Emulate a login via Shibalike
-     */
-    public function emulateLogin()
-    {
-        $from = (Input::get('target') != null) ? Input::get('target') : $this->getServerVariable('HTTP_REFERER');
-
-        $this->sp->makeAuthRequest($from);
-        $this->sp->redirect();
-    }
-
-    /**
-     * Emulate a logout via Shibalike
-     */
-    public function emulateLogout()
-    {
-        $this->sp->logout();
-
-        $referer = $this->getServerVariable('HTTP_REFERER');
-
-        die("Goodbye, fair user. <a href='$referer'>Return from whence you came</a>!");
-    }
-
-    /**
-     * Emulate the 'authentication' via Shibalike
-     */
-    public function emulateIdp()
-    {
-        $data = [];
-
-        if (Input::get('username') != null) {
-            $username = (Input::get('username') === Input::get('password')) ?
-                Input::get('username') : '';
-
-            $userAttrs = $this->idp->fetchAttrs($username);
-            if ($userAttrs) {
-                $this->idp->markAsAuthenticated($username);
-                $this->idp->redirect(route('shibboleth-authenticate'));
-            }
-
-            $data['error'] = 'Incorrect username and/or password';
-        }
-
-        return view('shibalike::IdpLogin', $data);
-    }
-
-    /**
-     * Function to get an attribute store for Shibalike
-     */
-    private function getAttrStore()
-    {
-        return new \Shibalike\Attr\Store\ArrayStore(config('shibboleth.emulate_idp_users'));
-    }
-
-    /**
-     * Gets a state manager for Shibalike
-     */
-    private function getStateManager()
-    {
-        $session = \UserlandSession\SessionBuilder::instance()
-            ->setSavePath(sys_get_temp_dir())
-            ->setName('SHIBALIKE_BASIC')
-            ->build();
-
-        return new \Shibalike\StateManager\UserlandSession($session);
-    }
-
-    /**
      * Wrapper function for getting server variables.
-     * Since Shibalike injects $_SERVER variables Laravel
-     * doesn't pick them up. So depending on if we are
-     * using the emulated IdP or a real one, we use the
-     * appropriate function.
      */
     private function getServerVariable($variableName)
     {
-        if (config('shibboleth.emulate_idp') == true) {
-            return isset($_SERVER[$variableName]) ?
-                $_SERVER[$variableName] : null;
-        }
 
         $variable = Request::server($variableName);
 
@@ -246,13 +150,13 @@ class ShibbolethController extends Controller
      * @param  array $customClaims
      * @return string
      */
-    private function tokenizeRedirect($user, $customClaims)
-    {
-        // This is where we used to setup a session. Now we will setup a token.
-        $token = JWTAuth::fromUser($user, $customClaims);
-
-        // We need to pass the token... how?
-        // Let's try this.
-        return "?token=$token";
-    }
+//    private function tokenizeRedirect($user, $customClaims)
+//    {
+//        // This is where we used to setup a session. Now we will setup a token.
+//        $token = JWTAuth::fromUser($user, $customClaims);
+//
+//        // We need to pass the token... how?
+//        // Let's try this.
+//        return "?token=$token";
+//    }
 }

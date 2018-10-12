@@ -18,46 +18,6 @@ return array(
 
     /*
     |--------------------------------------------------------------------------
-    | Emulate an IdP
-    |--------------------------------------------------------------------------
-    |
-    | In case you do not have access to your Shibboleth environment on
-    | homestead or your own Vagrant box, you can emulate a Shibboleth
-    | environment with the help of Shibalike.
-    |
-    | The password is the same as the username.
-    |
-    | Do not use this in production for literally any reason.
-    |
-     */
-
-    'emulate_idp'       => false,
-    'emulate_idp_users' => array(
-        'admin' => array(
-            'uid'         => 'admin',
-            'displayName' => 'Admin User',
-            'givenName'   => 'Admin',
-            'sn'          => 'User',
-            'mail'        => 'admin@uwm.edu',
-        ),
-        'staff' => array(
-            'uid'         => 'staff',
-            'displayName' => 'Staff User',
-            'givenName'   => 'Staff',
-            'sn'          => 'User',
-            'mail'        => 'staff@uwm.edu',
-        ),
-        'user'  => array(
-            'uid'         => 'user',
-            'displayName' => 'User User',
-            'givenName'   => 'User',
-            'sn'          => 'User',
-            'mail'        => 'user@uwm.edu',
-        ),
-    ),
-
-    /*
-    |--------------------------------------------------------------------------
     | Server Variable Mapping
     |--------------------------------------------------------------------------
     |
@@ -73,7 +33,12 @@ return array(
         'name'        => 'displayName',
         'first_name'  => 'givenName',
         'last_name'   => 'sn',
-        'student_id'  => 'employeeNumber',
+        'netid'       => 'eppn',
+        'username'    => 'uid',
+        'uin'         => 'iTrustUIN',
+        'org'         => 'ou',
+        'primary_affiliation' => 'primary-affiliation',
+        'affiliation' => 'affiliation',
     ],
 
     /*
@@ -95,7 +60,7 @@ return array(
     | JWTs are for the front end to know it's logged in
     |
     | https://github.com/tymondesigns/jwt-auth
-    | https://github.com/StudentAffairsUWM/Laravel-Shibboleth-Service-Provider/issues/24
+    | https://github.com/StudentSystemServices/Laravel-Shibboleth-Service-Provider/issues/24
     |
      */
 

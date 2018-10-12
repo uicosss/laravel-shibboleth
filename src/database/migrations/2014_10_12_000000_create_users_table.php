@@ -20,7 +20,12 @@ class CreateUsersTable extends Migration
             $table->string('password');
             $table->string('first_name')->nullable();
             $table->string('last_name')->nullable();
-            $table->string('student_id')->nullable();
+            $table->string('netid')->nullable();
+            $table->string('username')->nullable();
+            $table->string('uin')->nullable();
+            $table->string('org')->nullable();
+            $table->string('primary_affiliation')->nullable();
+            $table->string('affiliation')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });

@@ -1,4 +1,4 @@
-<?php namespace StudentAffairsUwm\Shibboleth\Providers;
+<?php namespace StudentSystemServices\Shibboleth\Providers;
 
 use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Contracts\Auth\UserProvider as UserProviderInterface;

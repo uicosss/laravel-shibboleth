@@ -1,6 +1,6 @@
 <?php
 
-namespace StudentAffairsUwm\Shibboleth;
+namespace StudentSystemServices\Shibboleth;
 
 use InvalidArgumentException;
 use Request;
@@ -9,7 +9,6 @@ class Entitlement
 {
     /**
      * Returns TRUE if current user has entitlement.
-     * NOTE: does not work with Shibalike. Only with production Shibboleth.
      *
      * @param  string $entitlement
      * @return bool

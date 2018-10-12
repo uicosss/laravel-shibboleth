@@ -1,6 +1,6 @@
 {
-    "name": "razorbacks/laravel-shibboleth",
-    "description": "Enable basic Shibboleth support for Laravel 5.x",
+    "name": "dpazuic/laravel-shibboleth",
+    "description": "Enable basic Shibboleth support for Laravel 5.x. Forked from razorbacks/laravel-shibboleth.",
     "authors": [
         {
             "name": "Christopher Maio",
@@ -17,22 +17,23 @@
         {
             "name": "Jeff Puckett",
             "email": "jpucket@uark.edu"
+        },
+        {
+            "name": "Daniel Paz-Horta",
+            "email": "dpaz@uic.edu"
         }
     ],
     "require": {
-        "illuminate/support": "5.*",
-        "mrclay/shibalike": "1.0.0",
-        "laravel/framework": "5.4.* || 5.5.*",
-        "tymon/jwt-auth": "^0.5.10"
+        "illuminate/support": "5.*"
     },
     "autoload": {
         "psr-4": {
-            "StudentAffairsUwm\\Shibboleth\\": "src/StudentAffairsUwm/Shibboleth"
+            "StudentSystemServices\\Shibboleth\\": "src/StudentSystemServices/Shibboleth"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "StudentAffairsUwm\\Shibboleth\\Tests\\Stubs\\": "tests/setup/Stubs",
+            "StudentSystemServices\\Shibboleth\\Tests\\Stubs\\": "tests/setup/Stubs",
             "App\\": "tests/setup/app"
         }
     },
@@ -44,7 +45,7 @@
     "extra": {
         "laravel": {
             "providers": [
-                "StudentAffairsUwm\\Shibboleth\\ShibbolethServiceProvider"
+                "StudentSystemServices\\Shibboleth\\ShibbolethServiceProvider"
             ]
         }
     }
