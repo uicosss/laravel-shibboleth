@@ -12,7 +12,7 @@
 >
     <filter>
         <whitelist processUncoveredFilesFromWhitelist="true">
-            <directory suffix=".php">./src/StudentAffairsUwm/Shibboleth</directory>
+            <directory suffix=".php">./src/StudentSystemServices/Shibboleth</directory>
         </whitelist>
     </filter>
     <testsuites>

@@ -1,8 +1,8 @@
 <?php
 
 use Orchestra\Testbench\TestCase;
-use StudentAffairsUwm\Shibboleth\Tests\Stubs\Setup;
-use StudentAffairsUwm\Shibboleth\Entitlement;
+use StudentSystemServices\Shibboleth\Tests\Stubs\Setup;
+use StudentSystemServices\Shibboleth\Entitlement;
 use App\User;
 
 class EntitlementTest extends TestCase
@@ -12,7 +12,7 @@ class EntitlementTest extends TestCase
     public function test_checks_for_current_entitlement()
     {
         // $_SERVER fixture set in
-        // StudentAffairsUwm\Shibboleth\Tests\Stubs\Setup::setUp();
+        // StudentSystemServices\Shibboleth\Tests\Stubs\Setup::setUp();
 
         $entitlement = 'urn:mace:uark.edu:ADGroups:Computing Services:Something:Somesuch-WCOB';
 
@@ -22,7 +22,7 @@ class EntitlementTest extends TestCase
     public function test_checks_for_missing_entitlement()
     {
         // $_SERVER fixture set in
-        // StudentAffairsUwm\Shibboleth\Tests\Stubs\Setup::setUp();
+        // StudentSystemServices\Shibboleth\Tests\Stubs\Setup::setUp();
 
         $entitlement = 'urn:mace:uark.edu:ADGroups:Computing Services:Nothing:Nonesuch-WCOB';
 

@@ -1,6 +1,6 @@
 <?php
 
-namespace StudentAffairsUwm\Shibboleth\Tests\Stubs;
+namespace StudentSystemServices\Shibboleth\Tests\Stubs;
 
 class ServiceProvider extends \Illuminate\Support\ServiceProvider
 {

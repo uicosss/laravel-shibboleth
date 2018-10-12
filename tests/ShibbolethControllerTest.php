@@ -1,9 +1,9 @@
 <?php
 
 use Orchestra\Testbench\TestCase;
-use StudentAffairsUwm\Shibboleth\Tests\Stubs\Setup;
+use StudentSystemServices\Shibboleth\Tests\Stubs\Setup;
 use App\User;
-use StudentAffairsUwm\Shibboleth\Controllers\ShibbolethController;
+use StudentSystemServices\Shibboleth\Controllers\ShibbolethController;
 
 class ShibbolethControllerTest extends TestCase
 {
