@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\View;
 use Illuminate\Console\AppNamespaceDetectorTrait;
-use JWTAuth;
+//use JWTAuth;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class ShibbolethController extends Controller
@@ -96,7 +96,15 @@ class ShibbolethController extends Controller
 
         Session::regenerate();
 
-        $route = config('shibboleth.authenticated');
+        // Check if there is a session variable 'shibboleth_redirect_to' set, otherwise use the default value in config('shibboleth.authenticated')
+        $route = empty(session('shibboleth_redirect_to')) ? config('shibboleth.authenticated') : session('shibboleth_redirect_to');
+
+        // Unset the shibboleth_redirect_to if it was set
+        if(!empty(session('shibboleth_redirect_to'))){
+
+            session()->remove('shibboleth_redirect_to');
+
+        }
 
 //        if (config('jwtauth') === true) {
 //            $route .= $this->tokenizeRedirect($user, ['auth_type' => 'idp']);
