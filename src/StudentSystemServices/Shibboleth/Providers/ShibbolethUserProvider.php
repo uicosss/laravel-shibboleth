@@ -80,6 +80,19 @@ class ShibbolethUserProvider implements UserProviderInterface
     }
 
     /**
+     *
+     *
+     * @param  \Illuminate\Auth\Authenticatable $user
+     * @param array $credentials
+     * @param bool $force
+     * @return void
+     */
+    public function rehashPasswordIfRequired(Authenticatable $user, array $credentials, bool $force = false)
+    {
+        // Not Implemented since not needed for Shibboleth SSO
+    }
+
+    /**
      * Update the "remember me" token for the given user in storage.
      *
      * @param  \Illuminate\Auth\Authenticatable  $user
