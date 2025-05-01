@@ -1,6 +1,7 @@
 {
-    "name": "dpazuic/laravel-shibboleth",
+    "name": "uicosss/laravel-shibboleth",
     "description": "Enable basic Shibboleth support for Laravel 5.x. Forked from razorbacks/laravel-shibboleth.",
+    "type": "library",
     "authors": [
         {
             "name": "Christopher Maio",
@@ -26,6 +27,7 @@
     "require": {
         "illuminate/support": "^5.0|^6.0|^7.0|^8.0|^9.0|^10.0|^11.0"
     },
+    "license": "MIT",
     "autoload": {
         "psr-4": {
             "StudentSystemServices\\Shibboleth\\": "src/StudentSystemServices/Shibboleth"
