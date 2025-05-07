@@ -137,7 +137,7 @@ class ShibbolethController extends Controller
 
         $variable = Request::server($variableName);
 
-        if (strtolower($variableName) === 'itrustsuppress') {
+        if (!empty($variable) && strtolower($variableName) === 'itrustsuppress') {
             return strtolower($variable) === 'true';
         }
 
