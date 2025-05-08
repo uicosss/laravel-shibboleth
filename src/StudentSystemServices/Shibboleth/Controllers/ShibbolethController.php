@@ -137,6 +137,12 @@ class ShibbolethController extends Controller
 
         $variable = Request::server($variableName);
 
+        if (strtolower($variableName) === 'itrustsuppress') {
+            $variable = empty($variable) ? Request::server('REDIRECT_' . $variableName) : $variable;
+
+            return strtolower($variable) === 'true';
+        }
+
         return (!empty($variable)) ?
             $variable :
             Request::server('REDIRECT_' . $variableName);
